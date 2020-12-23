@@ -41,8 +41,5 @@ runs:
         echo "antivirus_service is build with Dockertag: '${DOCKER_TAG_POSTFIX}'"
         echo "Version of antivirus_service is '${AVCHECK_VERSION}' (as Imagetag only for Master/Release)"  
         echo "GITHUB_SHA is '${GITHUB_SHA}' (Imagetag only for Master/Release)"      
-    - name: cancel workflow if Dockertag is empty String
-      if: ${{ env.DOCKER_TAG_POSTFIX == '' }}
-      uses: andymckay/cancel-action@0.2
     - name: end-macro
       run: echo macro end
