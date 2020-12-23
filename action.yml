@@ -4,5 +4,5 @@ description: 'macro read branchname output Dockertag and Dockertag SHA'
 runs:
   using: "composite"
   steps:
-      - run: echo Hello
+    - run: echo Hello
       shell: bash
