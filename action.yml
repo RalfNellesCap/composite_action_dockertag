@@ -2,9 +2,21 @@ name: 'composite_action_dockertag'
 description: 'macro read branchname output Dockertag and Dockertag SHA'
 inputs:
   AVCHECK_VERSION:
+    required: true
+    default: ''
   GIT_SHA:
+    required: true
+    default: ''
   JIRA_TicketID:
+    required: true
+    default: ''  
   BRANCH_PREFIX:
+    required: true
+    default: ''
+  DOCKER_TAG_POSTFIX:
+    default: ''
+  DOCKER_TAG_SHA:
+    default: ''
 outputs:
   docker-tag:
     value: ${{ steps.docker-tag.outputs.docker-tag }}
@@ -20,13 +32,6 @@ runs:
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
       # develop -> just develop_latest
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      ${{ inputs.AVCHECK_VERSION }}
-      ${{ inputs.GIT_SHA }}
-      ${{ inputs.JIRA_TicketID }}
-            ${{ inputs.BRANCH_PREFIX }}
-      shell: bash
-      # #### 
     - name: Assemble Dockertag for develop
       if: inputs.BRANCH_PREFIX == 'develop'
       run: |
