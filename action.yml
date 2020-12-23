@@ -4,5 +4,8 @@ description: 'macro read branchname output Dockertag and Dockertag SHA'
 runs:
   using: "composite"
   steps:
-    - run: echo ${DOCKER_TAG_POSTFIX}
+    - run: |
+        echo ${AVSCANWEBSERVER_REPO}
+        echo ${github.ref}
+        echo ${env.GITHUB_SHA}
       shell: bash
