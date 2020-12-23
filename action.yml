@@ -4,42 +4,5 @@ description: 'macro read branchname output Dockertag and Dockertag SHA'
 runs:
   using: "composite"
   steps:
-    - name: start macro
-      run:  echo ${{ github.ref }}
-    # Assemble the Dockertag for the build image based on the type of the branch
-    # Same convention as implemented OPS-1664
-    # develop -> just develop_latest
-    - name: Assemble Dockertag for develop
-      if: env.BRANCH_PREFIX == 'develop'
-      run: echo DOCKER_TAG_POSTFIX=develop_latest >> $GITHUB_ENV
-    # feature -> feature_<JIRA ID>_latest
-    - name: Assemble Dockertag for feature
-      if: env.BRANCH_PREFIX == 'feature'
-      run: echo "DOCKER_TAG_POSTFIX=feature_${{env.JIRA_TicketID}}_latest" >> $GITHUB_ENV
-    # release -> release_v<AVCHECK_VERSION>_latest, release_v<AVCHECK_VERSION>_GITSHA
-    - name: Assemble Dockertag for release
-      if: env.BRANCH_PREFIX == 'release'
-      run: |
-        echo "DOCKER_TAG_POSTFIX=release_${{env.AVCHECK_VERSION}}_latest" >> $GITHUB_ENV
-        echo "DOCKER_TAG_SHA=release_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}" >> $GITHUB_ENV
-    # hotfix -> hotfix_<JIRA ID>_latest
-    - name: Assemble Dockertag for hotfix
-      if: env.BRANCH_PREFIX == 'hotfix'
-      run: |
-        echo "DOCKER_TAG_POSTFIX=hotfix_${{env.JIRA_TicketID}}_latest" >> $GITHUB_ENV
-    # master -> master_v<AVCHECK_VERSION>_latest, master_v<AVCHECK_VERSION>_GITSHA
-    - name: Assemble Dockertag for master
-      if: env.BRANCH_PREFIX == 'master'
-      run: |
-        echo "DOCKER_TAG_POSTFIX=master_${{env.AVCHECK_VERSION}}_latest" >> $GITHUB_ENV
-        echo "DOCKER_TAG_SHA=master_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}" >> $GITHUB_ENV
-    - name: Echo Workflow Job Specs
-      run: |
-        echo "For BRANCH: '${BRANCH_NAME}'"
-        echo "with JIRA_Ticket: '${JIRA_TicketID}' (only Hotfix&Feature)"
-        echo "on Gitflow BRANCH: '${BRANCH_PREFIX}'"
-        echo "antivirus_service is build with Dockertag: '${DOCKER_TAG_POSTFIX}'"
-        echo "Version of antivirus_service is '${AVCHECK_VERSION}' (as Imagetag only for Master/Release)"  
-        echo "GITHUB_SHA is '${GITHUB_SHA}' (Imagetag only for Master/Release)"      
-    - name: end-macro
-      run: echo macro end
+      - run: echo Hello
+      shell: bash
