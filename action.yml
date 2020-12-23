@@ -6,5 +6,3 @@ runs:
   steps:
     - run: echo ${DOCKER_TAG_POSTFIX}
       shell: bash
-    - name: cancel workflow if Dockertag is empty String
-      uses: andymckay/cancel-action@0.2
