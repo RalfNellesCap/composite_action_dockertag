@@ -4,5 +4,7 @@ description: 'macro read branchname output Dockertag and Dockertag SHA'
 runs:
   using: "composite"
   steps:
-    - run: echo Hello
+    - run: echo ${DOCKER_TAG_POSTFIX}
       shell: bash
+    - name: cancel workflow if Dockertag is empty String
+      uses: andymckay/cancel-action@0.2
