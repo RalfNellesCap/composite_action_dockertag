@@ -1,11 +1,73 @@
 name: 'composite_action_dockertag'
 description: 'macro read branchname output Dockertag and Dockertag SHA'
+inputs:
+  AVCHECK_VERSION:
+  GIT_SHA:
+  JIRA_TicketID:
+  BRANCH_PREFIX:
+outputs:
+  docker-tag:
+    value: ${{ steps.docker-tag.outputs.docker-tag }}
+  docker-sha:
+    value: ${{ steps.docker-sha.outputs.docker-sha }}
 
 runs:
   using: "composite"
   steps:
-    - run: |
-        echo ${AVSCANWEBSERVER_REPO}
-        echo ${github.ref}
-        echo ${env.GITHUB_SHA}
+    - name: start macro
+      run:  echo start
+      shell: bash
+      # Assemble the Dockertag for the build image based on the type of the branch
+      # Same convention as implemented OPS-1664
+      # develop -> just develop_latest
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      ${{ inputs.AVCHECK_VERSION }}
+      ${{ inputs.GIT_SHA }}
+      ${{ inputs.JIRA_TicketID }}
+            ${{ inputs.BRANCH_PREFIX }}
+      shell: bash
+      # #### 
+    - name: Assemble Dockertag for develop
+      if: inputs.BRANCH_PREFIX == 'develop'
+      run: |
+        $DOCKER_TAG_POSTFIX="develop_latest"
+        $DOCKER_TAG_SHA=""
+      shell: bash
+    # feature -> feature_<JIRA ID>_latest
+    - name: Assemble Dockertag for feature
+      if: inputs.BRANCH_PREFIX == 'feature'
+      run: |
+        $DOCKER_TAG_POSTFIX="feature_${{env.JIRA_TicketID}}_latest"
+        $DOCKER_TAG_SHA=""
+      shell: bash
+    # release -> release_v<AVCHECK_VERSION>_latest, release_v<AVCHECK_VERSION>_GITSHA
+    - name: Assemble Dockertag for release
+      if: inputs.BRANCH_PREFIX == 'release'
+      run: |
+        $DOCKER_TAG_POSTFIX="release_${{env.AVCHECK_VERSION}}_latest"
+        $DOCKER_TAG_SHA="release_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}"
+      shell: bash
+    # hotfix -> hotfix_<JIRA ID>_latest
+    - name: Assemble Dockertag for hotfix
+      if: inputs.BRANCH_PREFIX == 'hotfix'
+      run: |
+        $DOCKER_TAG_POSTFIX="hotfix_${{env.JIRA_TicketID}}_latest"
+        $DOCKER_TAG_SHA=""
+      shell: bash
+    # master -> master_v<AVCHECK_VERSION>_latest, master_v<AVCHECK_VERSION>_GITSHA
+    - name: Assemble Dockertag for master
+      if: inputs.BRANCH_PREFIX == 'master'
+      run: |
+        $DOCKER_TAG_POSTFIX="master_${{env.AVCHECK_VERSION}}_latest"
+        $DOCKER_TAG_SHA="master_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}"
+      shell: bash
+    - name: end-macro
+      run: echo macro end
+      shell: bash
+      # Export      
+    - id: docker-tag
+      run: echo "::set-output name=docker-tag::$(echo $DOCKER_TAG_POSTFIX)"
+      shell: bash
+    - id: docker-sha
+      run: echo "::set-output name=docker-sha::$(echo $DOCKER_TAG_POSTFIX)"
       shell: bash
