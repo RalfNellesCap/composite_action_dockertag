@@ -8,8 +8,8 @@ Shell must be a valid built-in (bash, sh, cmd, powershell, pwsh)
 So for Python3 you need a container action see: https://github.com/RalfNellesCap/sc-build-push
 
 # Next Try
-- integrate external RegEx actions  
-- push to Docker with credentials  
+- Integrate external RegEx actions  
+- Push to Docker with secrets  
 
 Regex and Condition with Bash-Shell  
 
