@@ -2,6 +2,8 @@
 composite action to create dockertag from branchname with naming convention
 
 # Plan
+should set Dockertags by Branch using SCl4l4 naming convention
+By now only sets a unverifed Dockertag for Feature-Branch 
 
 # Wasted Time conditionals not supported
 
