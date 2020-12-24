@@ -15,6 +15,19 @@ We don't support setting conditionals, continue-on-error, timeout-minutes, "uses
 Supported Properties
 https://dev.to/n3wt0n/github-composite-actions-nest-actions-within-actions-3e5l
 
+# Next Try
+Regex Condition with Shell
+      - name: Check Tag
+        id: check-tag
+        run: |
+          if [[ ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo ::set-output name=match::true
+          fi
+      - name: Build
+        if: steps.check-tag.outputs.match == 'true'
+        run: |
+          echo "Tag is a match"
+
 # Use
       - name: Get Dockertags for branch
         id: tag
