@@ -2,21 +2,17 @@
 composite action to create dockertag from branchname using SC naming convention
 
 # Status
-By now only sets a unverifed Dockertag for Feature-Branch 
+By now only sets a unverifed Dockertag for Feature-Branch  
 
-# Aborted as conditionals are not supported
-
-What does composite run steps currently support?
-https://www.gitmemory.com/issue/actions/runner/646/670811114
-
-What does Composite Run Steps Not Support
-We don't support setting conditionals, continue-on-error, timeout-minutes, "uses", and secrets on individual steps within a composite action right now.
-
-Supported Properties
-https://dev.to/n3wt0n/github-composite-actions-nest-actions-within-actions-3e5l
+Composite Run Steps Not Support  
+Don't support setting conditionals right now.
 
 # Next Try
-Regex Condition with Shell
+
+Usingg Python3 as Shell
+
+Regex and Condition with Bash-Shell  
+
       - name: Check Tag
         id: check-tag
         run: |
