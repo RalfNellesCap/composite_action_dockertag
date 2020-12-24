@@ -2,10 +2,7 @@
 composite action to create dockertag from branchname using SC naming convention
 
 # Status
-By now only sets a unverifed Dockertag for Feature-Branch  
-
-Composite Run Steps Not Support  
-Don't support setting conditionals right now.
+runs with conditional branch tags  
 
 Shell must be a valid built-in (bash, sh, cmd, powershell, pwsh)  
 So for Python3 you need a container action see: https://github.com/RalfNellesCap/sc-build-push
