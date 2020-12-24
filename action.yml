@@ -74,5 +74,5 @@ runs:
       run: echo "::set-output name=docker-tag::$(echo $DOCKER_TAG_POSTFIX)"
       shell: bash
     - id: docker-sha
-      run: echo "::set-output name=docker-sha::$(echo $DOCKER_TAG_POSTFIX)"
+      run: echo "::set-output name=docker-sha::$(echo $DOCKER_TAG_SHA)"
       shell: bash
