@@ -1,11 +1,10 @@
 # composite_action_dockertag
-composite action to create dockertag from branchname with naming convention
+composite action to create dockertag from branchname using SC naming convention
 
-# Plan
-should set Dockertags by Branch using SCl4l4 naming convention.  
+# Status
 By now only sets a unverifed Dockertag for Feature-Branch 
 
-# Wasted Time conditionals not supported
+# Aborted as conditionals are not supported
 
 What does composite run steps currently support?
 https://www.gitmemory.com/issue/actions/runner/646/670811114
