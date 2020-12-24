@@ -13,16 +13,11 @@ inputs:
   BRANCH_PREFIX:
     required: true
     default: ''
-  DOCKER_TAG_POSTFIX:
-    default: ''
-  DOCKER_TAG_SHA:
-    default: ''
 outputs:
   docker-tag:
     value: ${{ steps.docker-tag.outputs.docker-tag }}
   docker-sha:
-    value: ${{ steps.docker-sha.outputs.docker-sha }}
-
+    value: ${{ steps.docker-tag.outputs.docker-sha }}
 runs:
   using: "composite"
   steps:
@@ -33,17 +28,11 @@ runs:
       # Same convention as implemented OPS-1664
       # develop -> just develop_latest
     - name: Assemble Dockertag for feature
+      id: docker-tag
       run: |
-        $DOCKER_TAG_POSTFIX="feature_${{env.JIRA_TicketID}}_latest"
-        $DOCKER_TAG_SHA=""
+        echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
+        echo "::set-output name=docker-tag::$(echo "")"
       shell: bash
     - name: end-macro
       run: echo macro end
-      shell: bash
-      # Export      
-    - id: docker-tag
-      run: echo "::set-output name=docker-tag::$(echo $DOCKER_TAG_POSTFIX)"
-      shell: bash
-    - id: docker-sha
-      run: echo "::set-output name=docker-sha::$(echo $DOCKER_TAG_SHA)"
       shell: bash
