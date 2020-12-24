@@ -32,39 +32,10 @@ runs:
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
       # develop -> just develop_latest
-    - name: Assemble Dockertag for develop
-      if: ${{ inputs.BRANCH_PREFIX == 'develop' }}
-      run: |
-        $DOCKER_TAG_POSTFIX="develop_latest"
-        $DOCKER_TAG_SHA=""
-      shell: bash
-    # feature -> feature_<JIRA ID>_latest
     - name: Assemble Dockertag for feature
-      if: ${{ inputs.BRANCH_PREFIX == 'feature' }}
       run: |
         $DOCKER_TAG_POSTFIX="feature_${{env.JIRA_TicketID}}_latest"
         $DOCKER_TAG_SHA=""
-      shell: bash
-    # release -> release_v<AVCHECK_VERSION>_latest, release_v<AVCHECK_VERSION>_GITSHA
-    - name: Assemble Dockertag for release
-      if: ${{ inputs.BRANCH_PREFIX == 'release' }}
-      run: |
-        $DOCKER_TAG_POSTFIX="release_${{env.AVCHECK_VERSION}}_latest"
-        $DOCKER_TAG_SHA="release_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}"
-      shell: bash
-    # hotfix -> hotfix_<JIRA ID>_latest
-    - name: Assemble Dockertag for hotfix
-      if: ${{ inputs.BRANCH_PREFIX == 'hotfix' }}
-      run: |
-        $DOCKER_TAG_POSTFIX="hotfix_${{env.JIRA_TicketID}}_latest"
-        $DOCKER_TAG_SHA=""
-      shell: bash
-    # master -> master_v<AVCHECK_VERSION>_latest, master_v<AVCHECK_VERSION>_GITSHA
-    - name: Assemble Dockertag for master
-      if: ${{ inputs.BRANCH_PREFIX == 'master' }}
-      run: |
-        $DOCKER_TAG_POSTFIX="master_${{env.AVCHECK_VERSION}}_latest"
-        $DOCKER_TAG_SHA="master_${{env.AVCHECK_VERSION}}_${{env.GITHUB_SHA}}"
       shell: bash
     - name: end-macro
       run: echo macro end
