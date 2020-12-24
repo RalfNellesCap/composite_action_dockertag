@@ -26,12 +26,13 @@ runs:
       shell: bash
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
-    - name: Assemble Dockertag for feature
+    - if: "${{ inputs.BRANCH_PREFIX == 'feature' }}"
+      name: Assemble Dockertag for feature
       id: docker-tag
       run: |
-        echo "Branch: ${{ inputs.BRANCH_PREFIX }}"
         echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         echo "::set-output name=docker-sha::$(echo "")"
+        echo "Branch: ${{ inputs.BRANCH_PREFIX }}"
         echo "Tag-latest: feature_${{env.JIRA_TicketID}}_latest"
         echo "tag-sha:"
         echo "git-SHA:${{env.GITHUB_SHA}}"
