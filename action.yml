@@ -22,17 +22,16 @@ runs:
   using: "composite"
   steps:
     - name: start macro
-      run:  echo start
+      run:  echo macro start
       shell: bash
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
-      # develop -> just develop_latest
     - name: Assemble Dockertag for feature
       id: docker-tag
       run: |
+        echo ${{ inputs.BRANCH_PREFIX }}
         echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         echo "::set-output name=docker-tag::$(echo "")"
-      shell: bash
-    - name: end-macro
-      run: echo macro end
+        echo "feature_${{env.JIRA_TicketID}}_latest"
+        echo macro end
       shell: bash
