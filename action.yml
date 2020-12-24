@@ -29,9 +29,11 @@ runs:
     - name: Assemble Dockertag for feature
       id: docker-tag
       run: |
-        echo ${{ inputs.BRANCH_PREFIX }}
+        echo "Branch: ${{ inputs.BRANCH_PREFIX }}"
         echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
-        echo "::set-output name=docker-tag::$(echo "")"
-        echo "feature_${{env.JIRA_TicketID}}_latest"
+        echo "::set-output name=docker-sha::$(echo "")"
+        echo "Tag-latest: feature_${{env.JIRA_TicketID}}_latest"
+        echo "tag-sha:"
+        echo "git-SHA:${{env.GITHUB_SHA}}"
         echo macro end
       shell: bash
