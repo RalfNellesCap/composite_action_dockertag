@@ -7,10 +7,10 @@ By now only sets a unverifed Dockertag for Feature-Branch
 Composite Run Steps Not Support  
 Don't support setting conditionals right now.
 
+Shell must be a valid built-in (bash, sh, cmd, powershell, pwsh)
+So for Python3 you need a container action see: https://github.com/RalfNellesCap/sc-build-push
+
 # Next Try
-
-Usingg Python3 as Shell
-
 Regex and Condition with Bash-Shell  
 
       - name: Check Tag
