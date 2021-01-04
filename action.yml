@@ -1,9 +1,5 @@
 name: 'composite_action_dockertag'
 description: 'macro read branchname output Dockertag and Dockertag SHA'
-inputs:
-  GIT_SHA:
-    required: true
-    default: ''
 outputs:
   docker-tag:
     value: ${{ steps.docker-tag.outputs.docker-tag }}
@@ -31,12 +27,12 @@ runs:
           echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'release' ]]; then
           echo "::set-output name=docker-tag::$(echo "release_${{env.AVCHECK_VERSION}}_latest")"
-          echo "::set-output name=docker-sha::$(echo "release_${{env.AVCHECK_VERSION}}_${{ env.GITHUB_SHA }}")"
+          echo "::set-output name=docker-sha::$(echo "release_${{env.AVCHECK_VERSION}}_${{ env.GIT_SHA }}")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'hotfix' ]]; then
          echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'master' ]]; then
           echo "::set-output name=docker-tag::$(echo "master_${{env.AVCHECK_VERSION}}_latest")"
-          echo "::set-output name=docker-sha::$(echo "master_${{env.AVCHECK_VERSION}}_${{ env.GITHUB_SHA }}")"
+          echo "::set-output name=docker-sha::$(echo "master_${{env.AVCHECK_VERSION}}_${{ env.GIT_SHA }}")"
         else
           echo "No match of branch name with naming condition - Workfow will abort!"
         fi        
