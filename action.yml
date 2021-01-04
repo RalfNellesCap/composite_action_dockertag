@@ -14,12 +14,10 @@ runs:
   steps:
     - name: Echo input vars
       run: |
-        echo "AVCHECK_VERSION: ${{ env.AVCHECK_VERSION}}"
         echo "BRANCH_PREFIX: ${{env.BRANCH_PREFIX }}"
         echo "JIRA_TicketID: ${{env.JIRA_TicketID}}"
         echo "AVCHECK_VERSION: ${{env.AVCHECK_VERSION}}"
-        echo "GITHUB_SHA: ${{ inputs.GIT_SHA }}"
-        echo "GITHUB_SHA: ${{ env.GITHUB_SHA }}"
+        echo "GIT_SHA: ${{ env.GIT_SHA }}"
       shell: bash
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
