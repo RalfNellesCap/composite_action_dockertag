@@ -14,7 +14,7 @@ runs:
   steps:
     - name: Echo input vars
       run: |
-        echo AVCHECK_VERSION: ${AVCHECK_VERSION}
+        echo "AVCHECK_VERSION: ${{ env.AVCHECK_VERSION}}"
         echo "BRANCH_PREFIX: ${{env.BRANCH_PREFIX }}"
         echo "JIRA_TicketID: ${{env.JIRA_TicketID}}"
         echo "AVCHECK_VERSION: ${{env.AVCHECK_VERSION}}"
