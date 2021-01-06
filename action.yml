@@ -21,16 +21,16 @@ runs:
       id: docker-tag
       run: |
         echo "::set-output name=docker-sha::$(echo "")"
-        if [[ ${{ inputs.BRANCH_PREFIX }} == 'develop' ]]; then
+        if [[ ${{env.BRANCH_PREFIX }} == 'develop' ]]; then
           echo "::set-output name=docker-tag::$(echo "develop_latest")"
-        elif [[ ${{ inputs.BRANCH_PREFIX }} == 'feature' ]]; then
+        elif [[ ${{env.BRANCH_PREFIX }} == 'feature' ]]; then
           echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
-        elif [[ ${{ inputs.BRANCH_PREFIX }} == 'release' ]]; then
+        elif [[ ${{env.BRANCH_PREFIX }} == 'release' ]]; then
           echo "::set-output name=docker-tag::$(echo "release_${{env.AVCHECK_VERSION}}_latest")"
           echo "::set-output name=docker-sha::$(echo "release_${{env.AVCHECK_VERSION}}_${{ github.sha }}")"
-        elif [[ ${{ inputs.BRANCH_PREFIX }} == 'hotfix' ]]; then
+        elif [[ ${{env.BRANCH_PREFIX }} == 'hotfix' ]]; then
          echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
-        elif [[ ${{ inputs.BRANCH_PREFIX }} == 'master' ]]; then
+        elif [[ ${{env.BRANCH_PREFIX }} == 'master' ]]; then
           echo "::set-output name=docker-tag::$(echo "master_${{env.AVCHECK_VERSION}}_latest")"
           echo "::set-output name=docker-sha::$(echo "master_${{env.AVCHECK_VERSION}}_${{ github.sha }}")"
         else
