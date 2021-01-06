@@ -14,6 +14,10 @@ runs:
         echo "JIRA_TicketID: ${{env.JIRA_TicketID}}"
         echo "AVCHECK_VERSION: ${{env.AVCHECK_VERSION}}"
         echo "GIT_SHA: ${{ env.GIT_SHA }}"
+        echo ${{ github.ref }}
+        echo ${github.ref}
+        echo $github.ref
+        echo ${github.sha}
       shell: bash
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
