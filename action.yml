@@ -13,9 +13,7 @@ runs:
         echo "BRANCH_PREFIX: ${{env.BRANCH_PREFIX }}"
         echo "JIRA_TicketID: ${{env.JIRA_TicketID}}"
         echo "AVCHECK_VERSION: ${{env.AVCHECK_VERSION}}"
-        echo "GIT_SHA: ${{ env.GIT_SHA }}"
-        echo ${{ github.ref }}
-        echo ${{ github.sha }}
+        echo "github.sha: ${{ github.sha }}"
       shell: bash
       # Assemble the Dockertag for the build image based on the type of the branch
       # Same convention as implemented OPS-1664
@@ -29,12 +27,12 @@ runs:
           echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'release' ]]; then
           echo "::set-output name=docker-tag::$(echo "release_${{env.AVCHECK_VERSION}}_latest")"
-          echo "::set-output name=docker-sha::$(echo "release_${{env.AVCHECK_VERSION}}_${{ env.GIT_SHA }}")"
+          echo "::set-output name=docker-sha::$(echo "release_${{env.AVCHECK_VERSION}}_${{ github.sha }}")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'hotfix' ]]; then
          echo "::set-output name=docker-tag::$(echo "feature_${{env.JIRA_TicketID}}_latest")"
         elif [[ ${{ inputs.BRANCH_PREFIX }} == 'master' ]]; then
           echo "::set-output name=docker-tag::$(echo "master_${{env.AVCHECK_VERSION}}_latest")"
-          echo "::set-output name=docker-sha::$(echo "master_${{env.AVCHECK_VERSION}}_${{ env.GIT_SHA }}")"
+          echo "::set-output name=docker-sha::$(echo "master_${{env.AVCHECK_VERSION}}_${{ github.sha }}")"
         else
           echo "No match of branch name with naming condition - Workfow will abort!"
         fi        
